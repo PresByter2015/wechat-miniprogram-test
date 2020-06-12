@@ -64,12 +64,12 @@ interface RootObject {
     count?: number;
     start?: number;
     total?: number;
-    movelist: Subject[];
+    movieList: Subject[];
     title?: string;
 }
 class Index extends Component {
     state: RootObject = {
-        movelist: []
+        movieList: []
     }
     /**
      * 指定config的类型声明为: Taro.Config
@@ -111,28 +111,29 @@ class Index extends Component {
             },
             success: (res) => {
                 this.setState({
-                    movelist: res.data.subjects
+                    movieList: res.data.subjects
                 })
             }
         })
     }
     handleChecked(e: string) {
         const checkedId = e
-        const movelist = this.state.movelist
-        console.log(e, movelist);
+        const movieList = this.state.movieList
+        // console.log(e, movieList);
         this.setState({
-            movelist: movelist.map(v => {
+            movieList: movieList.map(v => {
                 return v.id === checkedId ? { ...v, checked: !v.checked } : { ...v }
             })
         })
     }
     render() {
-        const { movelist } = this.state
+        const { movieList } = this.state
         return (
-            <View className='index'>
-                <Text>test测试页面</Text>
+            <View>
+                <Text className="title">test测试页面</Text>
                 <Button type="primary" onClick={this.getMovieList}>test</Button>
-                {movelist.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={() => this.handleChecked(v.id)}>{index}、{v.title}</View>))}
+                {/* {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={() => this.handleChecked(v.id)}>{index}、{v.title}</View>))} */}
+                {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={this.handleChecked.bind(this, v.id)}>{index}、{v.title}</View>))}
             </View>
         )
     }
