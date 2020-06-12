@@ -1,11 +1,11 @@
 <!--pages/test/test.wxml-->
-<text bindtap="getDataList">pages/test/test.wxml</text>
-<button bindtap="getDataList" type="primary">test</button>
-<view class="container log-list">
+<text bindtap="getDataList">test页面</text>
+<button bindtap="getDataList" type="primary">获取数据</button>
+<view>
   <block wx:for="{{movelist}}" wx:key="id" wx:for-item="item">
-    <text  bindtap="handleChecked" 
+    <view  bindtap="handleChecked" 
     data-id="{{item.id}}"  
     class="log-item {{item.checked?'active':''}}"
-    >{{index + 1}}. {{item.title}}</text>
+    >{{index + 1}}. {{item.title}}</view>
   </block>
 </view>
