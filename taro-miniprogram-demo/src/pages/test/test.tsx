@@ -9,6 +9,7 @@ type PageStateProps = {
 
 interface Index {
     props: PageStateProps;
+    [key: string]: any;
 }
 
 interface Subject {
@@ -67,6 +68,8 @@ interface RootObject {
     movieList: Subject[];
     title?: string;
 }
+//  函数类型的组件
+
 class Index extends Component {
     state: RootObject = {
         movieList: []
@@ -79,7 +82,7 @@ class Index extends Component {
      * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
      */
     config: Config = {
-        navigationBarTitleText: '测试页面'
+        navigationBarTitleText: 'taro 测试页面'
     }
 
     componentWillMount() { }
@@ -97,6 +100,15 @@ class Index extends Component {
         console.log('componentDidShow', this.props)
 
     }
+    renderMovieItem(props) {
+        console.log(props.title);
+
+        return (<View>
+            <Text>{props.index}阿将啊</Text>
+            <Text>{props.id}</Text>
+            <Text>{props.title}</Text>
+        </View>)
+    }
 
     componentDidHide() { }
     getMovieList() {
@@ -104,7 +116,7 @@ class Index extends Component {
             url: 'https://api.douban.com/v2/movie/top250?start=0&count=4000&apikey=0df993c66c0c636e29ecbb5344252a4a', //仅为示例，并非真实的接口地址
             data: {
                 start: 0,
-                count: 1000
+                count: 10
             },
             header: {
                 'content-type': 'json' // 默认值
@@ -130,10 +142,14 @@ class Index extends Component {
         const { movieList } = this.state
         return (
             <View>
-                <Text className="title">test测试页面</Text>
+                <Text className="title">taro test测试页面</Text>
                 <Button type="primary" onClick={this.getMovieList}>test</Button>
                 {/* {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={() => this.handleChecked(v.id)}>{index}、{v.title}</View>))} */}
-                {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={this.handleChecked.bind(this, v.id)}>{index}、{v.title}</View>))}
+                {movieList.map((v, index) => (<View key={v.id}
+                    className={v.checked ? 'active' : ''}
+                    onClick={this.handleChecked.bind(this, v.id)}
+                >{this.renderMovieItem({...v,index})}
+                </View>))}
             </View>
         )
     }
