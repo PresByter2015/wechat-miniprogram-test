@@ -100,6 +100,16 @@ class Index extends Component {
         console.log('componentDidShow', this.props)
 
     }
+    renderList(props) {
+        console.log(props);
+
+        return (<View>
+            {props.map((v, index) => (<View key={v.id}
+                className={v.checked ? 'active' : ''}
+            >qq/{v.title}
+            </View>))}
+        </View>)
+    }
     renderMovieItem(props) {
         console.log(props.title);
 
@@ -145,10 +155,17 @@ class Index extends Component {
                 <Text className="title">taro test测试页面</Text>
                 <Button type="primary" onClick={this.getMovieList}>test</Button>
                 {/* {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={() => this.handleChecked(v.id)}>{index}、{v.title}</View>))} */}
+                {/* {movieList.map((v, index) => (<View key={v.id}
+                    className={v.checked ? 'active' : ''}
+                    onClick={this.handleChecked.bind(this, v.id)}
+                >{this.renderMovieItem({ ...v, index })}
+                </View>))}
+                {this.renderList(movieList)} */}
+
                 {movieList.map((v, index) => (<View key={v.id}
                     className={v.checked ? 'active' : ''}
                     onClick={this.handleChecked.bind(this, v.id)}
-                >{this.renderMovieItem({...v,index})}
+                >{index + 1}、{v.title}
                 </View>))}
             </View>
         )
