@@ -126,19 +126,28 @@ class Index extends Component {
             url: 'https://api.douban.com/v2/movie/top250?start=0&count=4000&apikey=0df993c66c0c636e29ecbb5344252a4a', //仅为示例，并非真实的接口地址
             data: {
                 start: 0,
-                count: 10
+                count: 1000
             },
             header: {
                 'content-type': 'json' // 默认值
             },
             success: (res) => {
+                console.time('test');
+                let start = performance.now()
                 this.setState({
                     movieList: res.data.subjects
                 })
+                console.timeEnd('test');
+                let end = performance.now()
+                console.log(end - start);
+
             }
         })
     }
     handleChecked(e: string) {
+        console.time('test');
+        let start = performance.now()
+
         const checkedId = e
         const movieList = this.state.movieList
         // console.log(e, movieList);
@@ -147,6 +156,9 @@ class Index extends Component {
                 return v.id === checkedId ? { ...v, checked: !v.checked } : { ...v }
             })
         })
+        console.timeEnd('test');
+        let end = performance.now()
+        console.log(end - start);
     }
     render() {
         const { movieList } = this.state
