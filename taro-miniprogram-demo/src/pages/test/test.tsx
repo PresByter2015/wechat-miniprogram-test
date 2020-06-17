@@ -111,7 +111,6 @@ class Index extends Component {
         </View>)
     }
     renderMovieItem(props) {
-        console.log(props.title);
         const { title } = props
         return (<View>
             <Text>{props.index}</Text>
@@ -160,12 +159,17 @@ class Index extends Component {
         let end = performance.now()
         console.log(end - start);
     }
+    handleJs(){
+        eval('console.log(333)')
+        
+    }
     render() {
         const { movieList } = this.state
         return (
             <View>
                 <Text className="title">taro test测试页面</Text>
                 <Button type="primary" onClick={this.getMovieList}>test</Button>
+                <Button type="primary" onClick={this.handleJs}>js in js</Button>
                 {/* {movieList.map((v, index) => (<View key={v.id} className={v.checked ? 'active' : ''} onClick={() => this.handleChecked(v.id)}>{index}、{v.title}</View>))} */}
                 {movieList.map((v, index) => (<View key={v.id}
                     className={v.checked ? 'active' : ''}
